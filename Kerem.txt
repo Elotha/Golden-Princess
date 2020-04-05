@@ -1,0 +1,7 @@
+Terk edilmiþ bir altýn madeninde bir karakterin altýnlarý toplayýp bir þey için kullanmasý oyunu.
+Altýnýn kullanýlabileceði alanlar: Satýn alma, alet yapma, 
+Altýnýn özellikleri: Parlak, doðada serbest halde bulunabilir, 
+Fikirler
+1- Karakter sevdiði birisini kaybetmiþtir ve onun için ýþýl ýþýl ýþýldayan bir mezar yapmak istemektedir. Sevdiðinin
+cesetini uygun bir yere koyar ve etraftaki altýnlarý toplamak için yolculuða çýkar.
+2- 
