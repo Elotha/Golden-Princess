@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Chicken
   - Character
+  - Egg
+  - HeartParent
+  - GameMaster
   layers:
   - Default
   - TransparentFX
@@ -17,7 +20,7 @@ TagManager:
   - 
   - Blocks
   - Character
-  - 
+  - Eggs
   - 
   - 
   - 

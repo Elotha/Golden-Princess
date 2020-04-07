@@ -183,9 +183,9 @@ public class ChickenController : MonoBehaviour
     {
         int direction = ((FaceDir + 2) % 4) * 90;
         Vector3 vect = new Vector3(Mathf.Cos(Mathf.Deg2Rad * direction),Mathf.Sin(Mathf.Deg2Rad * direction));
-        //Debug.Log(vect);
         boolParry = true;
         ParrySpeed = ParrySpeedMax;
+        yield return new WaitForSeconds(0.1f);
         while (ParrySpeed > 0f) {
             Vector3 parryVector = vect * ParrySpeed * Time.deltaTime;
             if (CanWalk(parryVector, true)) {
@@ -208,6 +208,11 @@ public class ChickenController : MonoBehaviour
         sprRenderer.color = Color.white;
         Destination = Vector3.zero;
         StartCoroutine(Cooldown());
+    }
+
+    public void ColorChange()
+    {
+        sprRenderer.material = PlayerLives.matDefault;
     }
 
 }

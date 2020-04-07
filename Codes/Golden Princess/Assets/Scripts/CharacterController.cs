@@ -1,37 +1,47 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterController : MonoBehaviour
-{
-    public static SpriteRenderer sprRenderer;
-    public static GameObject Character;
+{    
+    //Movement
+    private bool MovementPermission = false;
     private float MoveSpeed = 10f;
-    private Animator animator;
     [HideInInspector] public int FaceDir;
     private bool isWalking = false;
     [HideInInspector] public bool isShielding = false;
     [HideInInspector] public bool isAttacking = false; 
-    private bool MovementPermission = false;
-    [SerializeField] private float AttackCooldownMax = 60f;
-    [SerializeField] private float AttackCooldown = 60f;
-    private float AttackSpeed = 20f;
+    [SerializeField] private float ParryTimeMax = 0.5f;
+    [HideInInspector] public float ParryTime = 0f;
+
+    //Attack
+    [SerializeField] private float AttackCooldownMax = 1f;
+    /*[HideInInspector]*/ public float [] AttackCooldowns = new float [3];
     [SerializeField] private float AttackSpeedMax = 20f;
     [SerializeField] private float AttackSpeedMin = 2f;
     [SerializeField] private float AttackFriction = 0.2f;
+    private float AttackSpeed = 20f;
+
+    //Inputs
     private float horInput = 0f;
     private float verInput = 0f;
     private float horSpeed = 0f;
     private float verSpeed = 0f;
-    [HideInInspector] public float ParryTime = 0f;
-    private LayerMask BlocksMask;
-    private bool boolKnockBack = false;
+
+    //Knockback
     [SerializeField] private float KnockbackSpeedMax = 8f;
     [SerializeField] private float KnockbackFriction = 0.2f;
     private float KnockbackSpeed = 0f;
 
+    //Others
+    public static SpriteRenderer sprRenderer;
+    private LayerMask BlocksMask;
+    private Animator animator;
+    [SerializeField] private Slider [] Sliders = new Slider [3];
 
-    void Start()
+
+    void Awake()
     {
         sprRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
@@ -51,31 +61,50 @@ public class CharacterController : MonoBehaviour
 
     void HandleInput()
     {
+        //Girdileri topla
         horInput = Input.GetAxisRaw("Horizontal");
         verInput = Input.GetAxisRaw("Vertical");
         bool attackInput = Input.GetButtonDown("Attack");
         bool shieldInput = Input.GetButton("Shield");
+
+        //Kalkan
         if (shieldInput && !attackInput && !isAttacking && !isShielding) {
             isShielding = true;
             isWalking = false;
             animator.SetTrigger("trigShield");
-            ParryTime = 0.5f;
+            ParryTime = ParryTimeMax;
         }
-        else if (!shieldInput && attackInput && !isAttacking && AttackCooldown == 0) {
-            isAttacking = true;
-            isShielding = false;
-            isWalking = false;
-            animator.SetTrigger("trigAttack");
-            AttackCooldown = AttackCooldownMax;
-            if (horInput == 0f && verInput == 0f) {
-                Vector2 Vect = Vector2.right;
-                for(var i = 0; i < FaceDir; i++) {
-                    Vect = Vector2.Perpendicular(Vect);
+
+        //Atak
+        else if (!shieldInput && attackInput && !isAttacking) {
+            bool CanAttack = true;
+            int selection = AttackCooldowns.Length - 1;
+            while (AttackCooldowns [selection] > 0f) {
+                selection--;
+                if (selection == -1) {
+                    CanAttack = false;
+                    break;
                 }
-                horSpeed = Vect.x;
-                verSpeed = Vect.y;
+            }
+            if (CanAttack) {
+                Sliders [selection].value = 0f;
+                isAttacking = true;
+                isShielding = false;
+                isWalking = false;
+                animator.SetTrigger("trigAttack");
+                AttackCooldowns[selection] = AttackCooldownMax;
+                if (horInput == 0f && verInput == 0f) {
+                    Vector2 Vect = Vector2.right;
+                    for (var i = 0; i < FaceDir; i++) {
+                        Vect = Vector2.Perpendicular(Vect);
+                    }
+                    horSpeed = Vect.x;
+                    verSpeed = Vect.y;
+                }
             }
         }
+
+        //Kalkan veya atak sonlandığı zaman için ufak ayarlamalar
         if (!shieldInput) {
             isShielding = false;
         }
@@ -85,6 +114,7 @@ public class CharacterController : MonoBehaviour
             verSpeed = verInput;
         }
 
+        //Gitmeye çalıştığımız yere gidebiliyor muyuz? Ona göre ayarlamalar yapılsın
         if (horInput != 0 || verInput != 0) {
             if (CanWalk(new Vector2(horInput,verInput))) {
             }
@@ -99,6 +129,8 @@ public class CharacterController : MonoBehaviour
                 verSpeed = 0f;
             }
         }
+
+        //Kalkan ve atak durumu yoksa yürüme ile ilgili ayarlamaları yap
         int tempDir = FaceDir;
         bool tempWalking = isWalking;
         if (horSpeed != 0) {
@@ -117,6 +149,7 @@ public class CharacterController : MonoBehaviour
             isWalking = false;
         }
         
+        //Animasyon işlerini hallet
         if (isWalking != tempWalking) {
             animator.SetTrigger("trigWalk");
         }
@@ -135,6 +168,14 @@ public class CharacterController : MonoBehaviour
         animator.SetBool("isAttacking",isAttacking);
         animator.SetInteger("FaceDir",FaceDir);
 
+        if (horInput == 0f && verInput == 0f) {
+            animator.SetBool("Idle",true);
+        }
+        else {
+            animator.SetBool("Idle",false);
+        }
+
+        //Pozisyon güncellemesini gerçekleştir
         if (!isAttacking) {
             Vector2 direction = new Vector2(horSpeed,verSpeed).normalized * MoveSpeed * Time.deltaTime;
             transform.Translate(direction);
@@ -165,17 +206,21 @@ public class CharacterController : MonoBehaviour
 
     void Cooldown()
     {
-        if (AttackCooldown > 0) {
-            AttackCooldown -= 0.5f;
+        for (int i = 0; i < AttackCooldowns.Length; i++) {
+            if (AttackCooldowns[i] > 0f) {
+                AttackCooldowns[i] = Mathf.Max(AttackCooldowns[i] - Time.deltaTime, 0f);
+                Sliders [i].value = 1f - (AttackCooldowns [i] / AttackCooldownMax);
+                break;
+            }
         }
+
         if (ParryTime > 0) {
-            ParryTime -= Time.deltaTime;
+            ParryTime = Mathf.Max(ParryTime - Time.deltaTime, 0f);
         }
     }
 
     public IEnumerator Knockback(int direction)
     {
-        boolKnockBack = true;
         direction = direction * 90;
         Vector3 vect = new Vector3(Mathf.Cos(Mathf.Deg2Rad * direction),Mathf.Sin(Mathf.Deg2Rad * direction));
         KnockbackSpeed = KnockbackSpeedMax;
@@ -190,6 +235,5 @@ public class CharacterController : MonoBehaviour
                 break;
             }
         }
-        boolKnockBack = false;
     }
 }
