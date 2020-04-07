@@ -159,7 +159,7 @@ MonoBehaviour:
   MoveSpeed: 3
   AttackSpeedMax: 12
   AttackCooldownTime: 1
-  AttackFriction: 0.05
+  AttackFriction: 12
   AttackMode: 0
   CheckDistances:
   - 2
@@ -168,5 +168,5 @@ MonoBehaviour:
   sprRenderer: {fileID: 0}
   CastingTime: 0.5
   ParrySpeedMax: 12
-  ParryFriction: 0.2
+  ParryFriction: 30
   boolParry: 0

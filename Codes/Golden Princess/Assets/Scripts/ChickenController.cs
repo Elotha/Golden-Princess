@@ -16,7 +16,7 @@ public class ChickenController : MonoBehaviour
     [SerializeField] private float AttackCooldownTime = 2f;
     private float AttackSpeed;
     private bool AttackCooldown;
-    [SerializeField] private float AttackFriction = 0.05f;
+    [SerializeField] private float AttackFriction = 7.5f;
     private int Repetition = 0;
     private List<int> emptyPaths = new List<int>();
     private Animator anim;
@@ -27,7 +27,7 @@ public class ChickenController : MonoBehaviour
     [HideInInspector] public SpriteRenderer sprRenderer;
     [SerializeField] private float CastingTime = 0.5f;
     [SerializeField] private float ParrySpeedMax = 4f;
-    [SerializeField] private float ParryFriction = 0.2f;
+    [SerializeField] private float ParryFriction = 30f;
     private float ParrySpeed = 0f;
     [SerializeField] private bool boolParry = false;
 
@@ -159,7 +159,7 @@ public class ChickenController : MonoBehaviour
             Vector3 attackVector = vect * AttackSpeed * Time.deltaTime;
             if (CanWalk(attackVector, false)) {
                 transform.Translate(attackVector);
-                AttackSpeed -= AttackFriction;
+                AttackSpeed -= AttackFriction * Time.deltaTime;
                 yield return null;
             }
             else {
@@ -190,7 +190,7 @@ public class ChickenController : MonoBehaviour
             Vector3 parryVector = vect * ParrySpeed * Time.deltaTime;
             if (CanWalk(parryVector, true)) {
                 transform.Translate(parryVector);
-                ParrySpeed -= ParryFriction;
+                ParrySpeed -= ParryFriction * Time.deltaTime;
                 yield return null;
             }
             else {
@@ -207,6 +207,7 @@ public class ChickenController : MonoBehaviour
         AttackCooldown = true;
         sprRenderer.color = Color.white;
         Destination = Vector3.zero;
+        StopAllCoroutines();
         StartCoroutine(Cooldown());
     }
 

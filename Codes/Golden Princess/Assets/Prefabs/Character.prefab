@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d4cc7d973add7248820e95c20d15044, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Particles: {fileID: 221751898876958311, guid: 5392e13448cc2e94daf01a09c13eaf51,
+  ChickenParticles: {fileID: 221751898876958311, guid: 5392e13448cc2e94daf01a09c13eaf51,
     type: 3}
   ParticlesParent: {fileID: 0}
   GoldenEgg: {fileID: 2895409544882616187, guid: 4b58d450f4322544abbd16731f7703af,
@@ -190,6 +190,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce91f96605ea9214db774007236ba817, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GoldenEggParticles: {fileID: 3982737732052850970, guid: a51f76ce51caa474da23ffe57a81b6b3,
+    type: 3}
+  ParticlesParent: {fileID: 0}
 --- !u!1 &5224423751362530317
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,11 +352,19 @@ MonoBehaviour:
   FaceDir: 0
   isShielding: 0
   isAttacking: 0
-  AttackCooldownMax: 60
-  AttackCooldown: 0
+  ParryTimeMax: 0.5
+  ParryTime: 0
+  AttackCooldownMax: 1
+  AttackCooldowns:
+  - 0
+  - 0
+  - 0
   AttackSpeedMax: 20
   AttackSpeedMin: 2
-  AttackFriction: 0.2
-  ParryTime: 0
+  AttackFriction: 30
   KnockbackSpeedMax: 8
-  KnockbackFriction: 0.2
+  KnockbackFriction: 30
+  Sliders:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

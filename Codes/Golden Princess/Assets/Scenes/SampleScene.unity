@@ -3075,17 +3075,6 @@ PrefabInstance:
       propertyPath: GoldenEggParent
       value: 
       objectReference: {fileID: 42758587}
-    - target: {fileID: 938675399, guid: 96b92849f7ef65746a0023f0c3f0d46e, type: 3}
-      propertyPath: ChickenParticles
-      value: 
-      objectReference: {fileID: 221751898876958311, guid: 5392e13448cc2e94daf01a09c13eaf51,
-        type: 3}
-    - target: {fileID: 1687204844870262938, guid: 96b92849f7ef65746a0023f0c3f0d46e,
-        type: 3}
-      propertyPath: GoldenEggParticles
-      value: 
-      objectReference: {fileID: 3982737732052850970, guid: a51f76ce51caa474da23ffe57a81b6b3,
-        type: 3}
     - target: {fileID: 1687204844870262938, guid: 96b92849f7ef65746a0023f0c3f0d46e,
         type: 3}
       propertyPath: ParticlesParent
@@ -3098,34 +3087,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5224423751362530318, guid: 96b92849f7ef65746a0023f0c3f0d46e,
         type: 3}
-      propertyPath: Sliders.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5224423751362530318, guid: 96b92849f7ef65746a0023f0c3f0d46e,
-        type: 3}
-      propertyPath: AttackCooldownMax
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5224423751362530318, guid: 96b92849f7ef65746a0023f0c3f0d46e,
-        type: 3}
       propertyPath: Sliders.Array.data[0]
       value: 
       objectReference: {fileID: 1195514350}
-    - target: {fileID: 5224423751362530318, guid: 96b92849f7ef65746a0023f0c3f0d46e,
-        type: 3}
-      propertyPath: Sliders.Array.data[3]
-      value: 
-      objectReference: {fileID: 1195514350}
-    - target: {fileID: 5224423751362530318, guid: 96b92849f7ef65746a0023f0c3f0d46e,
-        type: 3}
-      propertyPath: Sliders.Array.data[4]
-      value: 
-      objectReference: {fileID: 951043290}
-    - target: {fileID: 5224423751362530318, guid: 96b92849f7ef65746a0023f0c3f0d46e,
-        type: 3}
-      propertyPath: Sliders.Array.data[5]
-      value: 
-      objectReference: {fileID: 1768438903}
     - target: {fileID: 5224423751362530318, guid: 96b92849f7ef65746a0023f0c3f0d46e,
         type: 3}
       propertyPath: Sliders.Array.data[1]
@@ -3136,6 +3100,11 @@ PrefabInstance:
       propertyPath: Sliders.Array.data[2]
       value: 
       objectReference: {fileID: 1768438903}
+    - target: {fileID: 5224423751362530318, guid: 96b92849f7ef65746a0023f0c3f0d46e,
+        type: 3}
+      propertyPath: KnockbackSpeedMax
+      value: 10.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5224423751362530319, guid: 96b92849f7ef65746a0023f0c3f0d46e,
         type: 3}
       propertyPath: m_LocalPosition.x

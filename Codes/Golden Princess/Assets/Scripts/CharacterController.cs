@@ -6,8 +6,9 @@ using UnityEngine.UI;
 public class CharacterController : MonoBehaviour
 {    
     //Movement
-    private bool MovementPermission = false;
-    private float MoveSpeed = 10f;
+    private bool MovementPermission = true;
+    [SerializeField] private float MoveSpeedMax = 10f;
+    private float MoveSpeed;
     [HideInInspector] public int FaceDir;
     private bool isWalking = false;
     [HideInInspector] public bool isShielding = false;
@@ -20,7 +21,7 @@ public class CharacterController : MonoBehaviour
     /*[HideInInspector]*/ public float [] AttackCooldowns = new float [3];
     [SerializeField] private float AttackSpeedMax = 20f;
     [SerializeField] private float AttackSpeedMin = 2f;
-    [SerializeField] private float AttackFriction = 0.2f;
+    [SerializeField] private float AttackFriction = 30f;
     private float AttackSpeed = 20f;
 
     //Inputs
@@ -31,7 +32,7 @@ public class CharacterController : MonoBehaviour
 
     //Knockback
     [SerializeField] private float KnockbackSpeedMax = 8f;
-    [SerializeField] private float KnockbackFriction = 0.2f;
+    [SerializeField] private float KnockbackFriction = 30f;
     private float KnockbackSpeed = 0f;
 
     //Others
@@ -47,6 +48,7 @@ public class CharacterController : MonoBehaviour
         animator = GetComponent<Animator>();
         FaceDir = 3;
         BlocksMask = LayerMask.GetMask("Blocks");
+        MoveSpeed = MoveSpeedMax;
     }
 
     void Update()
@@ -61,6 +63,8 @@ public class CharacterController : MonoBehaviour
 
     void HandleInput()
     {
+        if (!MovementPermission) return;
+
         //Girdileri topla
         horInput = Input.GetAxisRaw("Horizontal");
         verInput = Input.GetAxisRaw("Vertical");
@@ -185,7 +189,7 @@ public class CharacterController : MonoBehaviour
             bool boolCanWalk = CanWalk(direction);
             if (boolCanWalk) {
                 transform.Translate(direction);
-                AttackSpeed -= AttackFriction;
+                AttackSpeed -= AttackFriction * Time.deltaTime;
             }
             if (!boolCanWalk || AttackSpeed <= AttackSpeedMin || (horSpeed == 0 && verSpeed == 0)) {
                 AttackSpeed = AttackSpeedMax;
@@ -221,6 +225,7 @@ public class CharacterController : MonoBehaviour
 
     public IEnumerator Knockback(int direction)
     {
+        MovementPermission = false;
         direction = direction * 90;
         Vector3 vect = new Vector3(Mathf.Cos(Mathf.Deg2Rad * direction),Mathf.Sin(Mathf.Deg2Rad * direction));
         KnockbackSpeed = KnockbackSpeedMax;
@@ -228,12 +233,13 @@ public class CharacterController : MonoBehaviour
             Vector3 parryVector = vect * KnockbackSpeed * Time.deltaTime;
             if (CanWalk(parryVector)) {
                 transform.Translate(parryVector);
-                KnockbackSpeed -= KnockbackFriction;
+                KnockbackSpeed -= KnockbackFriction * Time.deltaTime;
                 yield return null;
             }
             else {
                 break;
             }
         }
+        MovementPermission = true;
     }
 }
