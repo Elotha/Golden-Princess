@@ -349,6 +349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc897db1640c240a302e0b90bf629f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveSpeedMax: 10
   FaceDir: 0
   isShielding: 0
   isAttacking: 0
@@ -362,9 +363,13 @@ MonoBehaviour:
   AttackSpeedMax: 20
   AttackSpeedMin: 2
   AttackFriction: 30
-  KnockbackSpeedMax: 8
+  KnockbackSpeedMax: 10.5
   KnockbackFriction: 30
   Sliders:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  ParticleParent: {fileID: 0}
+  DashParticle: {fileID: 2252077605839711533, guid: fff2e1c7af2719648ac591b01dca6e3a,
+    type: 3}
+  DashParticlePosition: {x: 0, y: 0, z: 0}

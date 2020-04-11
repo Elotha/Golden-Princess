@@ -48,4 +48,13 @@ public class ChickenSpawner : MonoBehaviour
         }
         return true;
     }
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Gihi")) {
+            for (int i = 0; i < transform.childCount; i++) {
+                transform.GetChild(i).GetComponent<ChickenController>().enabled = true;
+            }
+        }
+    }
 }

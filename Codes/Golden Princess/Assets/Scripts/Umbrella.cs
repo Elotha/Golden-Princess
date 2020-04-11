@@ -49,6 +49,7 @@ public class Umbrella : MonoBehaviour {
                 ChickenScript.StopAttacking();
                 StartCoroutine(ParentScript.Knockback(_faceDir));
                 playerLives.TakeDamage();
+                ParentScript.StopAttacking();
                 StartCoroutine(CameraEffect.ShakingEffect(_faceDir));
 
             }

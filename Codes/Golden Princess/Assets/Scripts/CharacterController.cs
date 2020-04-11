@@ -40,6 +40,8 @@ public class CharacterController : MonoBehaviour
     private LayerMask BlocksMask;
     private Animator animator;
     [SerializeField] private Slider [] Sliders = new Slider [3];
+    [SerializeField] private Transform ParticleParent;
+    [SerializeField] private GameObject CharacterEffect;
 
 
     void Awake()
@@ -91,7 +93,10 @@ public class CharacterController : MonoBehaviour
                 }
             }
             if (CanAttack) {
-                Sliders [selection].value = 0f;
+                for(int i = selection; i < AttackCooldowns.Length; i++) {
+                    Sliders [i].value = 0f;
+                    AttackCooldowns[i] = AttackCooldownMax;
+                }
                 isAttacking = true;
                 isShielding = false;
                 isWalking = false;
@@ -214,6 +219,10 @@ public class CharacterController : MonoBehaviour
             if (AttackCooldowns[i] > 0f) {
                 AttackCooldowns[i] = Mathf.Max(AttackCooldowns[i] - Time.deltaTime, 0f);
                 Sliders [i].value = 1f - (AttackCooldowns [i] / AttackCooldownMax);
+                if (AttackCooldowns[i] == 0f) {
+                    SpriteRenderer characterEffect = Instantiate(CharacterEffect,transform.position,Quaternion.identity,transform).GetComponent<SpriteRenderer>();
+                    characterEffect.sprite = sprRenderer.sprite;
+                }
                 break;
             }
         }
@@ -241,5 +250,13 @@ public class CharacterController : MonoBehaviour
             }
         }
         MovementPermission = true;
+    }
+
+    public void StopAttacking()
+    {
+        if (isAttacking) {
+            isAttacking = false;
+            animator.SetBool("isAttacking",isAttacking);
+        }
     }
 }
