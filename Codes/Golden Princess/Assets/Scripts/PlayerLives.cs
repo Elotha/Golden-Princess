@@ -17,9 +17,6 @@ public class PlayerLives : MonoBehaviour {
         }
         matDefault = CharacterController.sprRenderer.material;
         matWhite = Resources.Load<Material>("WhiteFlash");
-        if (matWhite == null) {
-            Debug.LogError("null");
-        }
         
     }
     public void TakeDamage()
@@ -34,7 +31,6 @@ public class PlayerLives : MonoBehaviour {
             
         }
         else {
-            Debug.Log("You died!");
             Lives = LivesMax;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }

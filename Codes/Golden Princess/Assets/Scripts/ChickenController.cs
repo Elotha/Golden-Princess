@@ -187,6 +187,10 @@ public class ChickenController : MonoBehaviour
         ParrySpeed = ParrySpeedMax;
         yield return new WaitForSeconds(0.1f);
         while (ParrySpeed > 0f) {
+            if (this == null) {
+                Debug.Log("wtf");
+                yield break;
+            }
             Vector3 parryVector = vect * ParrySpeed * Time.deltaTime;
             if (CanWalk(parryVector, true)) {
                 transform.Translate(parryVector);

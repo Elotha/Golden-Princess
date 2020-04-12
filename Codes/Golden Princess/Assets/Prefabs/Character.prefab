@@ -193,6 +193,7 @@ MonoBehaviour:
   GoldenEggParticles: {fileID: 3982737732052850970, guid: a51f76ce51caa474da23ffe57a81b6b3,
     type: 3}
   ParticlesParent: {fileID: 0}
+  GoldenEggText: {fileID: 0}
 --- !u!1 &5224423751362530317
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,6 +371,5 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   ParticleParent: {fileID: 0}
-  DashParticle: {fileID: 2252077605839711533, guid: fff2e1c7af2719648ac591b01dca6e3a,
+  CharacterEffect: {fileID: 2252077605839711533, guid: fff2e1c7af2719648ac591b01dca6e3a,
     type: 3}
-  DashParticlePosition: {x: 0, y: 0, z: 0}

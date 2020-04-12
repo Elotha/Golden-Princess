@@ -93,6 +93,7 @@ public class CharacterController : MonoBehaviour
                 }
             }
             if (CanAttack) {
+                SoundManager.PlaySound(SoundManager.DashSound);
                 for(int i = selection; i < AttackCooldowns.Length; i++) {
                     Sliders [i].value = 0f;
                     AttackCooldowns[i] = AttackCooldownMax;

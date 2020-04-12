@@ -30,17 +30,17 @@ public class Umbrella : MonoBehaviour {
                 if (ParentScript.isShielding) { //Karakter kalkan açmış mı?
                     if (_faceDir == (_direction + 2) % 4) { //Tavuğun yönü ile karakterin yönü eşleşiyorsa
                         if (ParentScript.ParryTime > 0f) { //Parry
-                            Debug.Log("parry");
                             ChickenScript.sprRenderer.material = PlayerLives.matWhite;
                             ChickenScript.Invoke("ColorChange",0.2f);
                             ChickenScript.StopAttacking();
                             StartCoroutine(ChickenScript.Parry());
+                            SoundManager.PlaySound(SoundManager.ParrySound);
                             return;
                         }
                         else { //Kalkan
                             ChickenScript.StopAttacking();
                             StartCoroutine(ParentScript.Knockback(_faceDir));
-                            Debug.Log("shield");
+                            SoundManager.PlaySound(SoundManager.ShieldSound);
                             return;
                         }
                     }
@@ -51,6 +51,7 @@ public class Umbrella : MonoBehaviour {
                 playerLives.TakeDamage();
                 ParentScript.StopAttacking();
                 StartCoroutine(CameraEffect.ShakingEffect(_faceDir));
+                SoundManager.PlaySound(SoundManager.HurtSound);
 
             }
             else {
@@ -58,6 +59,7 @@ public class Umbrella : MonoBehaviour {
                     Instantiate(ChickenParticles,other.transform.position,Quaternion.identity,ParticlesParent);
                     Vector3 pos = new Vector3(other.transform.position.x,transform.position.y + 0.5f,0f);
                     StartCoroutine(CreateEgg(pos));
+                    SoundManager.PlaySound(SoundManager.ChickenDeadSound);
                     Destroy(other.gameObject);
                 }
             }

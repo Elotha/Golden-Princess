@@ -30,9 +30,13 @@ public class ChickenSpawner : MonoBehaviour
     
     public static void CreateChicken()
     {
-        var rndX = Random.Range(0f,floorSize.x);
-        var rndY = Random.Range(0f,floorSize.y);
-        Instantiate(Chicken,floorPos + new Vector3(rndX,rndY,-1f),Quaternion.identity,ChickenParent.transform);
+        float rndX;
+        float rndY;
+        for (int i = 0; i < 5; i++) {
+            rndX = Random.Range(0f,floorSize.x);
+            rndY = Random.Range(0f,floorSize.y);
+            Instantiate(Chicken,floorPos + new Vector3(rndX,rndY,-1f),Quaternion.identity,ChickenParent.transform);
+        }
     }
     bool Empty(Vector3 dir, bool boolChar)
     {
