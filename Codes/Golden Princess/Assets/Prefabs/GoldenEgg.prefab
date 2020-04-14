@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7096740133478213526}
   - component: {fileID: 5693599081906409330}
   - component: {fileID: 1547830275}
-  - component: {fileID: -7015774966247561861}
+  - component: {fileID: 1633032545395236502}
   m_Layer: 10
   m_Name: GoldenEgg
   m_TagString: Egg
@@ -97,7 +97,7 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.5}
   m_Size: {x: 1.02, y: 1.41}
   m_Direction: 0
 --- !u!114 &1547830275
@@ -114,7 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurveSpeed: 450
   verSpeed: 2
---- !u!114 &-7015774966247561861
+--- !u!114 &1633032545395236502
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,6 +123,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 2895409544882616187}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 574b3277c205f1248806356217ebac14, type: 3}
+  m_Script: {fileID: 11500000, guid: b68eb4474ca43c042adb58cae89a1fac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -188,7 +188,6 @@ public class ChickenController : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         while (ParrySpeed > 0f) {
             if (this == null) {
-                Debug.Log("wtf");
                 yield break;
             }
             Vector3 parryVector = vect * ParrySpeed * Time.deltaTime;

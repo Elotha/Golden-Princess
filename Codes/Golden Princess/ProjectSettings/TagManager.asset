@@ -9,6 +9,7 @@ TagManager:
   - Egg
   - HeartParent
   - GameMaster
+  - Umbrella
   layers:
   - Default
   - TransparentFX

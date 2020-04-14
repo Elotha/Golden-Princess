@@ -57,10 +57,6 @@ public class CharacterController : MonoBehaviour
     {
         Cooldown();
         HandleInput();
-
-        if (Input.GetButtonDown("Enter")) {
-            ChickenSpawner.CreateChicken();
-        }
     }
 
     void HandleInput()
